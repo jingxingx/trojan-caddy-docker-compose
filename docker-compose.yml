@@ -2,17 +2,17 @@ version: "3"
 
 services:
   trojan:
-    image: teddysun/trojan-go
-    restart: unless-stopped
+    container_name: trojan
+    image: p4gefau1t/trojan-go
+    restart: always
     ports:
       - "443:443"
       - "443:443/udp"
     volumes:
-      - ./trojan/config:/etc/trojan-go
-      - ./ssl:/ssl
+        - ./config.json:/etc/trojan-go/config.json
+        - /opt/cert:/opt/cert
     depends_on:
       - caddy
-
   caddy:
     image: caddy
     restart: unless-stopped
